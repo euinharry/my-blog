@@ -1,0 +1,31 @@
+# -- 顶部导航菜单（显示在页面顶部）--
+[[main]]
+  name = "文章"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "归档"
+  pageRef = "archives"
+  weight = 20
+
+[[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 30
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 40
+
+[[main]]
+  name = "关于"
+  pageRef = "about"
+  weight = 50
+
+# -- 页脚菜单（显示在版权信息上方）--
+[[footer]]
+  name = "关于"
+  pageRef = "about"
+  weight = 10

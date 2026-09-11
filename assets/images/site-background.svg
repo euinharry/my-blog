@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="crimson" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#e11d48" stop-opacity=".70"/>
+      <stop offset="1" stop-color="#e11d48" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="teal" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#0ea5e9" stop-opacity=".66"/>
+      <stop offset="1" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amber" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity=".40"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="34"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .09 0"/></filter>
+    <linearGradient id="line" x1="0" x2="1"><stop stop-color="#38bdf8" stop-opacity="0"/><stop offset=".5" stop-color="#fda4af" stop-opacity=".50"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#080d1c"/>
+  <g filter="url(#blur)">
+    <circle cx="250" cy="190" r="310" fill="url(#crimson)">
+      <animate attributeName="cx" values="250;430;250" dur="24s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="190;300;190" dur="19s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1340" cy="660" r="360" fill="url(#teal)">
+      <animate attributeName="cx" values="1340;1150;1340" dur="27s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="660;540;660" dur="21s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="880" cy="300" r="200" fill="url(#teal)" opacity=".65">
+      <animate attributeName="cy" values="300;430;300" dur="17s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="700" cy="820" r="230" fill="url(#amber)" opacity=".8">
+      <animate attributeName="cx" values="700;860;700" dur="29s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g fill="none" stroke="url(#line)" stroke-width="1.5" opacity=".7">
+    <path d="M-80 660 C250 410 470 840 770 590 S1320 270 1680 480">
+      <animate attributeName="d" dur="19s" repeatCount="indefinite" values="M-80 660 C250 410 470 840 770 590 S1320 270 1680 480;M-80 560 C250 710 470 400 770 630 S1320 380 1680 380;M-80 660 C250 410 470 840 770 590 S1320 270 1680 480"/>
+    </path>
+    <path d="M-60 750 C230 510 500 770 810 680 S1340 410 1660 600" opacity=".6">
+      <animate attributeName="d" dur="25s" repeatCount="indefinite" values="M-60 750 C230 510 500 770 810 680 S1340 410 1660 600;M-60 650 C230 740 500 500 810 720 S1340 320 1660 510;M-60 750 C230 510 500 770 810 680 S1340 410 1660 600"/>
+    </path>
+  </g>
+  <rect width="1600" height="900" filter="url(#grain)" opacity=".55"/>
+</svg>

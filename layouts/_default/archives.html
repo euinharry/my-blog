@@ -1,0 +1,30 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+
+  <header>
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+    {{ with .Content }}
+      <div class="mt-3 prose dark:prose-invert">{{ . }}</div>
+    {{ end }}
+  </header>
+
+  {{ $posts := where site.RegularPages "Section" "posts" }}
+  {{ if gt (len $posts) 0 }}
+    <section class="space-y-10 w-full mt-6">
+      {{ range $posts.GroupByDate "2006" }}
+        <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">{{ .Key }}</h2>
+        {{ range .Pages }}
+          {{ partial "article-link/simple.html" . }}
+        {{ end }}
+      {{ end }}
+    </section>
+  {{ else }}
+    <section class="mt-10 prose dark:prose-invert">
+      <p class="py-8 border-t">
+        <em>{{ i18n "list.no_articles" | emojify }}</em>
+      </p>
+    </section>
+  {{ end }}
+{{ end }}

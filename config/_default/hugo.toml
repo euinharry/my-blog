@@ -1,0 +1,69 @@
+# ===========================================================================
+#  站点核心配置   Hugo + Blowfish
+#  本地预览：hugo server -D     重新构建：hugo --gc --minify
+# ===========================================================================
+
+baseURL = "https://euinblog.pages.dev/"
+theme = "blowfish"
+
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = false
+
+enableRobotsTXT = true
+enableEmoji = true
+enableInlineShortcodes = true
+summaryLength = 0
+
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+hasCJKLanguage = true
+pygmentsUseClasses = true
+
+# 首页只展示 posts 栏目下的文章
+mainSections = ["posts"]
+
+[pagination]
+  pagerSize = 8
+
+[imaging]
+  anchor = 'Center'
+
+[minify]
+  disableXML = true
+
+# 分类 / 标签 / 系列
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+# home 里的 JSON 是站内搜索的索引，不要删
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[sitemap]
+  changefreq = 'daily'
+  filename = 'sitemap.xml'
+  priority = 0.5
+
+[related]
+  threshold = 0
+  toLower = false
+
+    [[related.indices]]
+        name = "tags"
+        weight = 100
+
+    [[related.indices]]
+        name = "categories"
+        weight = 100
+
+    [[related.indices]]
+        name = "series"
+        weight = 50
+
+    [[related.indices]]
+        name = "date"
+        weight = 10

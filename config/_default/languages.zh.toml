@@ -1,0 +1,24 @@
+disabled = false
+locale = "zh-CN"
+label = "简体中文"
+weight = 1
+title = "Euin的个人博客*`ヾ(*´∀`*)ﾉ"
+
+[params]
+  displayName = "中文"
+  isoCode = "zh-CN"
+  rtl = false
+  dateFormat = "2006年01月02日"
+  description = "记录技术、学习与生活。"
+
+  [params.author]
+    name = "Euin"
+    email = "3411893753@qq.com"
+    image = "img/photo.jpg"
+    imageQuality = 96
+    headline = "记录技术、学习与生活"
+    bio = "这里记录我的技术笔记、学习心得与生活随笔。"
+    links = [
+      { github = "https://github.com/euinharry" },
+      { email = "mailto:3411893753@qq.com" },
+    ]

@@ -1,0 +1,34 @@
+/* =====================================================================
+   站点级自定义样式 (Blowfish 自动加载 assets/css/custom.css)
+   ===================================================================== */
+
+/* 1. 中文字体优先 */
+html,
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+        "Source Han Sans SC", "Noto Sans CJK SC", "WenQuanYi Micro Hei",
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* 2. 正文宽度 */
+.max-w-prose { max-width: 44rem; }
+
+/* 3. 正文排版 */
+.article-content {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    letter-spacing: 0.02em;
+    text-align: justify;
+    text-justify: inter-ideograph;
+    word-break: break-word;
+}
+.article-content p { margin-top: 1.1em; margin-bottom: 1.1em; }
+.article-content h1, .article-content h2,
+.article-content h3, .article-content h4 { line-height: 1.4; }
+.article-content img { border-radius: 0.5rem; }
+.article-content table { display: block; width: 100%; overflow-x: auto; }
+
+@media screen and (max-width: 768px) {
+    .article-content { font-size: 1rem; }
+}
