@@ -7,18 +7,16 @@ comments: false
 
 你好，我是这个博客的作者  -(˶ᵔ ᵕ ᵔ˶)-
 
-这里是 **我的个人博客**，用来记录学习笔记、技术总结和生活随笔。
+这里是我的个人博客，用来记录**学习笔记、技术总结**。
 
 ## 关于我
 
-- 职业 / 方向：（在这里写一句话介绍自己）
-- 常用工具：（写几个你常用的工具或语言）
-- 联系方式：3411893753@qq.com / [GitHub](https://github.com/euinharry)
+- 职业：中南民族大学生物医学工程专业学生, 医工融合联合创新实验室技术副会长
+- 技术栈：STM32, FreeRTOS, 嵌入式Linux, FPGA
+- 联系方式：3411893753@qq.com / [GitHub](https://github.com/euinharry) / 202421121224@mail.scuec.edu.cn
 
 ## 关于本站
 
-- 使用 [Hugo](https://gohugo.io/) 生成，主题是 [Blowfish](https://blowfish.page/)
-- 托管在 [Cloudflare Pages](https://pages.cloudflare.com/)，全球加速且免费
-- 全站静态，没有数据库，打开速度很快
+- 使用 [Hugo](https://gohugo.io/) 生成
+- 托管在 [Cloudflare Pages](https://pages.cloudflare.com/)
 
-> 这个页面可以直接改：编辑 `content/about.md`，把上面的占位内容换成你自己的介绍即可。
