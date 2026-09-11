@@ -15,7 +15,13 @@
   {{ $monthNames := slice "" "一" "二" "三" "四" "五" "六" "七" "八" "九" "十" "十一" "十二" }}
 
   {{ if gt (len $pages) 0 }}
-    <div class="archive mt-10">
+    <div class="archive-toolbar mt-6">
+      <button id="archive-toggle-all" class="archive-toggle-all" type="button" aria-expanded="false">
+        全部展开
+      </button>
+    </div>
+
+    <div class="archive mt-4">
       {{ range $pages.GroupByDate "2006" }}
         <section class="archive-year">
           <h2 class="archive-year-title text-2xl font-bold text-neutral-800 dark:text-neutral-200">
@@ -25,33 +31,64 @@
 
           {{ range .Pages.GroupByDate "1" }}
             {{ $month := int .Key }}
-            <h3 class="archive-month-title text-lg font-semibold text-neutral-600 dark:text-neutral-400">
-              <span>{{ index $monthNames $month }}月</span>
-              <span class="archive-count">{{ len .Pages }}</span>
-            </h3>
+            <details class="archive-month">
+              <summary class="archive-month-title text-lg font-semibold text-neutral-600 dark:text-neutral-400">
+                <svg class="archive-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                     fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+                <span>{{ index $monthNames $month }}月</span>
+                <span class="archive-count">{{ len .Pages }}</span>
+              </summary>
 
-            <div class="archive-list">
-              {{ range .Pages }}
-                <div class="archive-item">
-                  <h4 class="archive-item-title text-base font-medium">
-                    <a class="archive-link text-neutral-800 dark:text-neutral-200" href="{{ .RelPermalink }}">
-                      {{ .Title | emojify }}
-                    </a>
-                  </h4>
-                  <div class="archive-meta flex flex-row flex-wrap items-center text-sm text-neutral-500 dark:text-neutral-400">
-                    {{ partial "meta/date.html" .Date }}
-                    <span class="px-2 text-primary-500">&middot;</span>
-                    {{ partial "meta/reading-time.html" . }}
-                    <span class="px-2 text-primary-500">&middot;</span>
-                    {{ partial "meta/word-count.html" . }}
+              <div class="archive-list">
+                {{ range .Pages }}
+                  <div class="archive-item">
+                    <h4 class="archive-item-title text-base font-medium">
+                      <a class="archive-link text-neutral-800 dark:text-neutral-200" href="{{ .RelPermalink }}">
+                        {{ .Title | emojify }}
+                      </a>
+                    </h4>
+                    <div class="archive-meta flex flex-row flex-wrap items-center text-sm text-neutral-500 dark:text-neutral-400">
+                      {{ partial "meta/date.html" .Date }}
+                      <span class="px-2 text-primary-500">&middot;</span>
+                      {{ partial "meta/reading-time.html" . }}
+                      <span class="px-2 text-primary-500">&middot;</span>
+                      {{ partial "meta/word-count.html" . }}
+                    </div>
                   </div>
-                </div>
-              {{ end }}
-            </div>
+                {{ end }}
+              </div>
+            </details>
           {{ end }}
         </section>
       {{ end }}
     </div>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("archive-toggle-all");
+        if (!btn) return;
+        var months = Array.prototype.slice.call(document.querySelectorAll("details.archive-month"));
+
+        function allOpen() {
+          return months.every(function (d) { return d.open; });
+        }
+        function refresh() {
+          var open = allOpen();
+          btn.textContent = open ? "全部收起" : "全部展开";
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        btn.addEventListener("click", function () {
+          var open = allOpen();
+          months.forEach(function (d) { d.open = !open; });
+          refresh();
+        });
+        months.forEach(function (d) { d.addEventListener("toggle", refresh); });
+        refresh();
+      })();
+    </script>
   {{ else }}
     <section class="mt-10 prose dark:prose-invert">
       <p class="py-8 border-t">

@@ -86,3 +86,47 @@ html.dark .archive-item:hover { background-color: rgba(var(--color-neutral-700),
     font-variant-numeric: tabular-nums;
     margin-left: auto;
 }
+
+/* ===== 归档页：月份折叠 / 展开收起按钮 ===== */
+.archive-toolbar { display: flex; justify-content: flex-end; }
+
+.archive-toggle-all {
+    font-size: 0.8125rem;
+    line-height: 1;
+    padding: 0.45rem 0.9rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgb(var(--color-neutral-300));
+    color: rgb(var(--color-neutral-600));
+    background-color: transparent;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+.archive-toggle-all:hover {
+    color: rgb(var(--color-primary-600));
+    border-color: rgb(var(--color-primary-500));
+    background-color: rgba(var(--color-primary-500), 0.06);
+}
+html.dark .archive-toggle-all {
+    border-color: rgb(var(--color-neutral-700));
+    color: rgb(var(--color-neutral-400));
+}
+html.dark .archive-toggle-all:hover { color: rgb(var(--color-primary-400)); }
+
+.archive-month > summary {
+    cursor: pointer;
+    list-style: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.archive-month > summary::-webkit-details-marker { display: none; }
+.archive-month > summary:hover { color: rgb(var(--color-primary-500)); }
+
+.archive-chevron {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex: none;
+    align-self: center;
+    color: rgb(var(--color-neutral-400));
+    transition: transform 0.18s ease;
+}
+.archive-month[open] > summary .archive-chevron { transform: rotate(90deg); }
