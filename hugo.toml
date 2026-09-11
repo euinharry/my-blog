@@ -5,7 +5,7 @@
 
 # ★★★ 第 1 步：部署成功后把这里换成你的真实网址 ★★★
 #     例如 https://my-blog.pages.dev/  或  https://blog.你的域名.com/
-baseURL = "https://my-blog.pages.dev/"
+baseURL = "https://euinblog.pages.dev/"
 
 # ★★★ 第 2 步：改成你自己的博客名 ★★★
 title = "我的博客"
