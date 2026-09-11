@@ -5,13 +5,13 @@
   weight = 10
 
 [[main]]
-  name = "归档"
-  pageRef = "archives"
+  name = "系列"
+  pageRef = "series"
   weight = 20
 
 [[main]]
-  name = "分类"
-  pageRef = "categories"
+  name = "归档"
+  pageRef = "archives"
   weight = 30
 
 [[main]]

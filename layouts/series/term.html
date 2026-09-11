@@ -1,0 +1,60 @@
+{{/* 系列（专题）页：导读 + 按 series_order 排序的完整目录，不分页 */}}
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "term" }}
+
+  <header class="mt-5">
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+    <div class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ partial "article-meta/term.html" (dict "context" . "scope" "single") }}
+    </div>
+  </header>
+
+  {{ with .Content }}
+    <section class="flex flex-col max-w-full mt-0 mb-5 prose dark:prose-invert lg:flex-row">
+      <div class="min-w-0 min-h-0 max-w-prose">{{ . }}</div>
+    </section>
+  {{ end }}
+
+  {{ if gt (len .Pages) 0 }}
+    {{ $pages := .Pages }}
+    {{ $ordered := true }}
+    {{ range $pages }}{{ if not (isset .Params "series_order") }}{{ $ordered = false }}{{ end }}{{ end }}
+    {{ if $ordered }}
+      {{ $pages = sort $pages "Params.series_order" }}
+    {{ else }}
+      {{ $pages = $pages.ByDate.Reverse }}
+    {{ end }}
+
+    <section class="mt-8 w-full">
+      <h2 class="text-2xl font-bold text-neutral-700 dark:text-neutral-300">
+        目录
+        <span class="ms-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
+          （共 {{ len $pages }} 篇）
+        </span>
+      </h2>
+      <ol class="mt-5 list-none space-y-4 ps-0">
+        {{ range $i, $p := $pages }}
+          <li class="flex items-start gap-3 not-prose">
+            <span class="mt-1 w-8 shrink-0 text-right font-mono text-sm text-primary-500">
+              {{ add $i 1 }}
+            </span>
+            <div class="min-w-0">
+              <a
+                href="{{ $p.RelPermalink }}"
+                class="text-lg font-medium text-neutral-800 hover:underline hover:underline-offset-2 dark:text-neutral-200">
+                {{ $p.Title | emojify }}
+              </a>
+              <div class="mt-0.5 flex flex-row flex-wrap items-center text-xs text-neutral-500 dark:text-neutral-400">
+                {{ partial "meta/date.html" $p.Date }}
+                <span class="px-2 text-primary-500">&middot;</span>
+                {{ partial "meta/reading-time.html" $p }}
+              </div>
+            </div>
+          </li>
+        {{ end }}
+      </ol>
+    </section>
+  {{ end }}
+{{ end }}
