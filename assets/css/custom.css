@@ -32,3 +32,57 @@ body {
 @media screen and (max-width: 768px) {
     .article-content { font-size: 1rem; }
 }
+
+/* ===== 归档页（年 / 月 / 紧凑条目） ===== */
+.archive-year { margin-bottom: 2.5rem; }
+
+.archive-year-title,
+.archive-month-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.archive-year-title { margin: 0 0 0.35rem; }
+.archive-month-title { margin: 1.6rem 0 0.4rem; }
+
+.archive-count {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: rgb(var(--color-neutral-400));
+}
+html.dark .archive-count { color: rgb(var(--color-neutral-500)); }
+
+.archive-list { border-top: 1px solid rgb(var(--color-neutral-200)); }
+html.dark .archive-list { border-top-color: rgb(var(--color-neutral-700)); }
+
+.archive-item {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 1rem;
+    row-gap: 0.2rem;
+    padding: 0.62rem 0.6rem;
+    border-bottom: 1px solid rgb(var(--color-neutral-200));
+    transition: background-color 0.15s ease;
+}
+html.dark .archive-item { border-bottom-color: rgb(var(--color-neutral-700)); }
+
+.archive-item:hover { background-color: rgba(var(--color-neutral-100), 0.75); }
+html.dark .archive-item:hover { background-color: rgba(var(--color-neutral-700), 0.3); }
+
+.archive-item-title { margin: 0; }
+
+.archive-link { text-decoration: none; }
+.archive-link::after { content: ""; position: absolute; inset: 0; }
+.archive-item:hover .archive-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgb(var(--color-primary-500));
+}
+
+.archive-meta {
+    font-variant-numeric: tabular-nums;
+    margin-left: auto;
+}

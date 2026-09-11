@@ -3,7 +3,7 @@
 
 colorScheme = "blowfish"
 defaultAppearance = "dark" # light 或 dark
-autoSwitchAppearance = true
+autoSwitchAppearance = false
 
 enableA11y = false
 enableSearch = true

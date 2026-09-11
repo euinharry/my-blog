@@ -10,16 +10,48 @@
     {{ end }}
   </header>
 
-  {{ $posts := where site.RegularPages "Section" "posts" }}
-  {{ if gt (len $posts) 0 }}
-    <section class="space-y-10 w-full mt-6">
-      {{ range $posts.GroupByDate "2006" }}
-        <h2 class="mt-12 text-2xl font-bold text-neutral-700 first:mt-8 dark:text-neutral-300">{{ .Key }}</h2>
-        {{ range .Pages }}
-          {{ partial "article-link/simple.html" . }}
-        {{ end }}
+  {{/* 除本页以外的所有普通页面，按 年 -> 月 分组（对齐 PaperMod 的归档） */}}
+  {{ $pages := where site.RegularPages "RelPermalink" "ne" .RelPermalink }}
+  {{ $monthNames := slice "" "一" "二" "三" "四" "五" "六" "七" "八" "九" "十" "十一" "十二" }}
+
+  {{ if gt (len $pages) 0 }}
+    <div class="archive mt-10">
+      {{ range $pages.GroupByDate "2006" }}
+        <section class="archive-year">
+          <h2 class="archive-year-title text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+            <span>{{ .Key }}</span>
+            <span class="archive-count">{{ len .Pages }}</span>
+          </h2>
+
+          {{ range .Pages.GroupByDate "1" }}
+            {{ $month := int .Key }}
+            <h3 class="archive-month-title text-lg font-semibold text-neutral-600 dark:text-neutral-400">
+              <span>{{ index $monthNames $month }}月</span>
+              <span class="archive-count">{{ len .Pages }}</span>
+            </h3>
+
+            <div class="archive-list">
+              {{ range .Pages }}
+                <div class="archive-item">
+                  <h4 class="archive-item-title text-base font-medium">
+                    <a class="archive-link text-neutral-800 dark:text-neutral-200" href="{{ .RelPermalink }}">
+                      {{ .Title | emojify }}
+                    </a>
+                  </h4>
+                  <div class="archive-meta flex flex-row flex-wrap items-center text-sm text-neutral-500 dark:text-neutral-400">
+                    {{ partial "meta/date.html" .Date }}
+                    <span class="px-2 text-primary-500">&middot;</span>
+                    {{ partial "meta/reading-time.html" . }}
+                    <span class="px-2 text-primary-500">&middot;</span>
+                    {{ partial "meta/word-count.html" . }}
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
+        </section>
       {{ end }}
-    </section>
+    </div>
   {{ else }}
     <section class="mt-10 prose dark:prose-invert">
       <p class="py-8 border-t">
