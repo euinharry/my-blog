@@ -1,0 +1,13 @@
+# Hugo 构建产物
+/public/
+/resources/
+
+# Hugo 构建锁
+.hugo_build.lock
+
+# 编辑器 / 系统垃圾文件
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
