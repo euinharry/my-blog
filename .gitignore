@@ -11,3 +11,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# 本地交接/笔记文件，不提交
+交接文档-*.md
