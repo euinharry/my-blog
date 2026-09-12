@@ -1,0 +1,119 @@
+{{/* 右下角小猫（oneko.js）=================================================
+     来源：https://github.com/adryd325/oneko.js     MIT License, © 2022 adryd
+     许可证随脚本保留：static/js/oneko.LICENSE
+     行为：跟着鼠标跑；长时间不动会自己犯困、睡觉、挠墙
+     说明：本体自带 pointer-events: none，不挡任何点击
+           触屏设备没有鼠标，就把它安置在右下角原地待着
+     小窝：右下角按钮，点一下把猫收进窝里（状态记在 localStorage，跨页保持）
+     换形象：替换 static/img/oneko.gif（8×8 个 32px 帧的 sprite 表）即可
+========================================================================= */}}
+<style>
+  /* oneko 自己内联的是 z-index: 2147483647，压到页头之下、正文之上 */
+  #oneko { z-index: 40 !important; }
+
+  /* 右下角的小窝按钮：位置让开主题自带的「回到顶部」（bottom-6 + h-12） */
+  #oneko-nest {
+    position: fixed;
+    inset-inline-end: 1.5rem;
+    bottom: 5.25rem;
+    z-index: 41;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: 9999px;
+    background: rgba(120, 120, 120, 0.12);
+    color: rgb(var(--color-neutral-500));
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  }
+  #oneko-nest:hover {
+    opacity: 1;
+    color: rgb(var(--color-primary-500));
+    background: rgba(120, 120, 120, 0.2);
+  }
+  #oneko-nest:focus-visible {
+    opacity: 1;
+    outline: 2px solid rgb(var(--color-primary-500));
+    outline-offset: 2px;
+  }
+  #oneko-nest svg { width: 1.4rem; height: 1.4rem; }
+  #oneko-nest .nest-sleeping { display: none; }
+  html.oneko-collapsed #oneko-nest .nest-empty { display: none; }
+  html.oneko-collapsed #oneko-nest .nest-sleeping { display: block; }
+  html.oneko-collapsed #oneko { display: none !important; }
+
+  @media print { #oneko, #oneko-nest { display: none !important; } }
+</style>
+
+<button id="oneko-nest" type="button" aria-pressed="false" aria-label="收起小猫" title="收起小猫">
+  <svg class="nest-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3.2 12.4h17.6l-2 5.7a2.6 2.6 0 0 1-2.5 1.8H7.7a2.6 2.6 0 0 1-2.5-1.8l-2-5.7Z" />
+    <path d="M4.4 12.4a7.6 7.6 0 0 1 15.2 0" />
+  </svg>
+  <svg class="nest-sleeping" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+       stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M3.2 12.4h17.6l-2 5.7a2.6 2.6 0 0 1-2.5 1.8H7.7a2.6 2.6 0 0 1-2.5-1.8l-2-5.7Z" />
+    <path d="M9.4 10.6V7.7l1.7 1.2a4.2 4.2 0 0 1 1.8 0l1.7-1.2v2.9" />
+    <path d="M9.9 11.2a1.05 1.05 0 0 0 1.7 0" />
+    <path d="M12.4 11.2a1.05 1.05 0 0 0 1.7 0" />
+  </svg>
+</button>
+
+<script>
+  /* 小窝：点一下把猫收起来 / 放出来 */
+  (function () {
+    var btn = document.getElementById("oneko-nest");
+    if (!btn) return;
+
+    /* 系统开了「减少动态效果」时 oneko 不会启动，小窝也一起收起来 */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      btn.style.display = "none";
+      return;
+    }
+
+    var KEY = "oneko-collapsed";
+    var root = document.documentElement;
+
+    function apply(collapsed) {
+      root.classList.toggle("oneko-collapsed", collapsed);
+      btn.setAttribute("aria-pressed", collapsed ? "true" : "false");
+      var label = collapsed ? "叫醒小猫" : "收起小猫";
+      btn.setAttribute("aria-label", label);
+      btn.setAttribute("title", label);
+    }
+
+    var collapsed = false;
+    try { collapsed = window.localStorage.getItem(KEY) === "1"; } catch (err) {}
+    apply(collapsed);
+
+    btn.addEventListener("click", function () {
+      collapsed = !collapsed;
+      try { window.localStorage.setItem(KEY, collapsed ? "1" : "0"); } catch (err) {}
+      apply(collapsed);
+    });
+  })();
+</script>
+
+<script>
+  /* 触屏设备没有鼠标：直接给一个右下角的初始位置，猫就原地待着（会自己睡） */
+  (function () {
+    if (!window.matchMedia("(hover: none)").matches) return;
+    try {
+      var x = Math.max(48, window.innerWidth - 56);
+      var y = Math.max(48, window.innerHeight - 56);
+      window.localStorage.setItem("oneko", JSON.stringify({
+        nekoPosX: x, nekoPosY: y, mousePosX: x, mousePosY: y,
+        frameCount: 0, idleTime: 0, idleAnimation: null, idleAnimationFrame: 0,
+        bgPos: "-96px -96px"
+      }));
+    } catch (err) {}
+  })();
+</script>
+
+<script src="{{ "js/oneko.js" | relURL }}" data-cat="{{ "img/oneko.gif" | relURL }}"></script>
