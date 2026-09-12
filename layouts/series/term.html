@@ -27,28 +27,19 @@
       {{ $pages = $pages.ByDate.Reverse }}
     {{ end }}
 
-    <section class="mt-8 w-full">
+    <section class="series-toc mt-8 w-full">
       <h2 class="text-2xl font-bold text-neutral-700 dark:text-neutral-300">
-        目录
-        <span class="ms-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
-          （共 {{ len $pages }} 篇）
-        </span>
+        目录<span class="series-toc-count">共 {{ len $pages }} 篇</span>
       </h2>
-      <ol class="mt-5 list-none space-y-4 ps-0">
+      <ol class="series-toc-list">
         {{ range $i, $p := $pages }}
-          <li class="flex items-start gap-3 not-prose">
-            <span class="mt-1 w-8 shrink-0 text-right font-mono text-sm text-primary-500">
-              {{ add $i 1 }}
-            </span>
-            <div class="min-w-0">
-              <a
-                href="{{ $p.RelPermalink }}"
-                class="text-lg font-medium text-neutral-800 hover:underline hover:underline-offset-2 dark:text-neutral-200">
-                {{ $p.Title | emojify }}
-              </a>
-              <div class="mt-0.5 flex flex-row flex-wrap items-center text-xs text-neutral-500 dark:text-neutral-400">
+          <li class="series-toc-item">
+            <span class="series-toc-num">{{ add $i 1 }}</span>
+            <div class="series-toc-body">
+              <a class="series-toc-link" href="{{ $p.RelPermalink }}">{{ $p.Title | emojify }}</a>
+              <div class="series-toc-meta">
                 {{ partial "meta/date.html" $p.Date }}
-                <span class="px-2 text-primary-500">&middot;</span>
+                <span class="series-toc-dot">&middot;</span>
                 {{ partial "meta/reading-time.html" $p }}
               </div>
             </div>
